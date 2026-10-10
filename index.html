@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#2f78c4">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Peg or Not">
 <title>Peg or Not</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,7 +65,8 @@ body[data-sky="sun"] .sky i[data-k="sun"],body[data-sky="cloud"] .sky i[data-k="
 body[data-sky="rain"] .sky b{opacity:.25}
 body[data-sky="cloud"]{--g1:var(--cloud-a);--g2:var(--cloud-b);--g3:var(--cloud-c)}
 body[data-sky="rain"]{--g1:var(--rain-a);--g2:var(--rain-b);--g3:var(--rain-c)}
-.wrap{max-width:480px;margin:0 auto;display:grid;gap:14px}
+.wrap{max-width:480px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+main{min-width:0}
 
 /* top bar */
 .top{display:flex;justify-content:space-between;align-items:center;gap:12px}
@@ -71,7 +76,7 @@ body[data-sky="rain"]{--g1:var(--rain-a);--g2:var(--rain-b);--g3:var(--rain-c)}
 .iconbtn{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--glass);border:1px solid var(--edge);color:var(--fg);cursor:pointer;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
 
 /* hero */
-.hero{text-align:center;padding-block:18px 6px}
+.hero{text-align:center;padding-block:18px 14px}
 .eyebrow{font:500 .82rem var(--f-ui);color:var(--fg-2);letter-spacing:.02em}
 .score{font:200 8rem/0.9 var(--f-num);letter-spacing:-.065em;font-feature-settings:"tnum" 1,"ss01" 1;margin:10px 0 4px;padding-right:.06em}
 .verdict{font:500 1.5rem/1.2 var(--f-ui);letter-spacing:-.02em;display:inline-flex;align-items:center;gap:10px}
@@ -186,6 +191,42 @@ details.is-open summary .chev{transform:rotate(180deg)}
 
 @media (max-width:380px){.score{font-size:6rem}.times b{font-size:1.05rem}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+
+.tools{display:flex;align-items:center;gap:8px}
+.clock{font:400 .95rem var(--f-num);font-feature-settings:"tnum" 1;color:var(--fg-2);padding-right:4px}
+#refreshBtn:hover svg{transform:none}
+.spin{animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.strip{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 12px;margin-inline:-2px;scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.dp{flex:none;display:grid;gap:4px;justify-items:center;min-width:56px;padding:9px 10px;border-radius:16px;background:var(--glass);border:1px solid var(--edge);color:var(--fg);font:500 .82rem var(--f-ui);cursor:pointer}
+.dp b{font:400 1rem var(--f-num);font-feature-settings:"tnum" 1}
+.dp i{width:6px;height:6px;border-radius:50%}
+.dp[aria-selected="true"]{background:var(--fg);color:var(--g1)}
+.ctl{padding:4px 16px}
+.crow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;min-height:54px}
+.crow+.crow{border-top:1px solid var(--edge)}
+.cl{font:500 .82rem var(--f-ui);color:var(--fg-2)}
+.seg{display:inline-flex;background:var(--glass-hi);border-radius:999px;padding:3px;gap:2px}
+.seg button{border:0;background:none;color:var(--fg-2);font:500 .85rem var(--f-ui);padding:7px 14px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--fg);color:var(--g1)}
+.pill{border:1px solid var(--edge);background:var(--glass-hi);color:var(--fg);font:500 .85rem var(--f-ui);padding:7px 14px;border-radius:999px;cursor:pointer}
+.pill[aria-pressed="true"]{background:var(--fg);color:var(--g1);border-color:transparent}
+.pill:disabled{opacity:.35;pointer-events:none}
+.startc{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.stepper{display:inline-flex;align-items:center;background:var(--glass-hi);border-radius:999px}
+.stepper button{width:36px;height:36px;border:0;background:none;color:var(--fg);font:300 1.3rem var(--f-ui);cursor:pointer;border-radius:50%}
+.stepper span{min-width:3.4rem;text-align:center;font:400 1rem var(--f-num);font-feature-settings:"tnum" 1}
+.linkbtn{background:none;border:0;color:var(--fg-2);font:500 .85rem var(--f-ui);text-decoration:underline;text-underline-offset:3px;cursor:pointer;margin-top:8px;padding:4px}
+.times em{display:block;font:400 .74rem var(--f-ui);font-style:normal;color:var(--fg-3);margin-top:2px;min-height:1.1em}
+.shead{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.read{align-items:center}
+.cl{white-space:nowrap}
+.startc{flex-wrap:nowrap}
+.startc .pill{padding:7px 12px}
+.startc .stepper span{min-width:3rem}
+.startc .stepper button{width:32px}
+@media (max-width:380px){.startc{flex-wrap:wrap}}
 </style>
 </head>
 <body data-sky="sun">
@@ -196,31 +237,47 @@ details.is-open summary .chev{transform:rotate(180deg)}
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
       <span id="placeName">Orpington</span>
     </button>
-    <button class="iconbtn" id="setupBtn" type="button" aria-label="Your setup">
+    <div class="tools"><span class="clock" id="clock">--:--</span>
+    <button class="iconbtn" id="refreshBtn" type="button" aria-label="Refresh forecast"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg></button>
+    <button class="iconbtn" id="setupBtn" type="button" aria-label="Settings">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>
-    </button>
+    </button></div>
   </div>
 
   <div id="status" class="status"><span id="statusText">Checking the sky</span><br><span class="loader" id="loader"><i></i><i></i><i></i></span></div>
 
   <main id="main" hidden>
+    <div class="strip" id="strip" role="tablist" aria-label="Choose a day"></div>
     <section class="hero">
       <div class="eyebrow" id="eyebrow">Today</div>
       <div class="score" id="score">–</div>
       <div class="verdict"><i id="dot"></i><span id="verdict"></span></div>
       <p class="summary" id="summary"></p>
+      <button class="linkbtn" id="compare" type="button" hidden></button>
     </section>
 
     <div class="wrap">
       <section class="glass times">
-        <div><small>Hang out</small><b id="tOut">–</b></div>
-        <div><small>Dry by</small><b id="tDry">–</b></div>
-        <div><small>Bring in</small><b id="tIn">–</b></div>
+        <div><small>Hang out</small><b id="tOut">–</b><em id="rOut"></em></div>
+        <div><small>Dry by</small><b id="tDry">–</b><em id="rDry"></em></div>
+        <div><small>Bring in</small><b id="tIn">–</b><em id="rIn"></em></div>
+      </section>
+
+      <section class="glass ctl">
+        <div class="crow"><span class="cl">Washing</span>
+          <div class="seg" id="segLoad" role="group" aria-label="Washing type"><button type="button" data-v="light">Light</button><button type="button" data-v="mixed">Mixed</button><button type="button" data-v="heavy">Heavy</button></div></div>
+        <div class="crow"><span class="cl">Hang out</span>
+          <div class="startc"><button class="pill" id="stBest" type="button">Best</button><button class="pill" id="stNow" type="button">Now</button>
+            <div class="stepper"><button id="stMinus" type="button" aria-label="30 minutes earlier">−</button><span id="stVal">–</span><button id="stPlus" type="button" aria-label="30 minutes later">+</button></div></div></div>
+        <div class="crow"><span class="cl">You're</span>
+          <div class="seg" id="segHome" role="group" aria-label="Home or out"><button type="button" data-v="home">Home</button><button type="button" data-v="out">Out</button></div></div>
+        <div class="crow" id="backRow" hidden><span class="cl">Back by</span>
+          <div class="stepper"><button id="bkMinus" type="button" aria-label="Earlier">−</button><span id="bkVal">17:00</span><button id="bkPlus" type="button" aria-label="Later">+</button></div></div>
       </section>
 
       <section class="glass panel">
         <div class="label">Drag through the day</div>
-        <div class="read"><div class="h" id="rHour">12:00<small id="rScore"></small></div></div>
+        <div class="read"><div class="h" id="rHour">12:00<small id="rScore"></small></div><button class="pill" id="setHere" type="button">Hang out here</button></div>
         <div class="chips" id="rChips"></div>
         <div class="scrub" id="scrub" tabindex="0" role="slider" aria-label="Hour of day" aria-valuemin="0" aria-valuemax="23" aria-valuenow="12">
           <svg id="chart" viewBox="0 0 400 150" preserveAspectRatio="none"></svg>
@@ -238,23 +295,19 @@ details.is-open summary .chev{transform:rotate(180deg)}
         <div class="days" id="days"></div>
       </details>
 
-      <p class="foot">Forecast by <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a> · <button type="button" id="setupLink">Edit your setup</button></p>
+      <p class="foot">Forecast by <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a> · <span id="updated"></span></p>
     </div>
   </main>
 </div>
 
-<div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="qTitle">
+<div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-label="Settings">
   <div class="card">
-    <div class="steps" id="steps"></div>
-    <div id="stepBody">
-      <h2 class="q" id="qTitle"></h2>
-      <p class="qs" id="qSub"></p>
-      <div id="qBody"></div>
-    </div>
-    <div class="nav">
-      <button class="ghost" id="back" type="button">Back</button>
-      <button class="primary" id="next" type="button">Next</button>
-    </div>
+    <div class="shead"><h2 class="q" style="margin:0">Settings</h2><button class="primary" id="done" type="button">Done</button></div>
+    <p class="qs" style="margin-top:14px">Where's your washing line?</p>
+    <input class="search" id="search" type="search" placeholder="Search a town or city" autocomplete="off" aria-label="Search town">
+    <div class="res" id="res"></div>
+    <p class="qs" style="margin:18px 0 8px">Tumble dryer at home?</p>
+    <div class="seg" id="segDryer" role="group" aria-label="Tumble dryer"><button type="button" data-v="yes">Yes</button><button type="button" data-v="no">No</button></div>
   </div>
 </div>
 
@@ -286,7 +339,9 @@ function countTo(el, to){
 }
 
 let place = store.get("pon.place", { name: "Orpington", lat: 51.3742, lon: 0.0985 });
-let setup = store.get("pon.setup", null);
+let setup = Object.assign({ load: "mixed", home: true, back: 17, dryer: false }, store.get("pon.setup", {}));
+let startAt = null, baseNow = 12, fetchedAt = Date.now(), stale = false, soft = false;
+const liveNow = () => baseNow + (Date.now() - fetchedAt) / 3.6e6;
 let data = null, days = [], selected = 0, nowH = 12, scrubH = 12;
 
 const NEED = { light: 0.75, mixed: 1, heavy: 1.4 };
@@ -308,59 +363,82 @@ function rateHour(h){
   return { base, vpd, wet, score: Math.round(100 * base * rf) };
 }
 
-function analyseDay(day, startFrom){
-  const s0 = setup || {}, need = NEED[s0.load || "mixed"], home = s0.home !== false;
+function evalStart(day, startT, until){
+  const need = NEED[setup.load || "mixed"], home = setup.home !== false;
   const { sunrise, sunset, hours } = day;
-  const daylight = h => clamp(Math.min(h + 1, sunset) - Math.max(h, sunrise), 0, 1);
-  const limit = home ? sunset : Math.min(s0.back ?? 18, sunset);
-  const backAt = home ? sunset : (s0.back ?? 18);
-  const starts = hours.filter(h => h.hour >= startFrom && daylight(h.hour) >= 0.5 && !h.r.wet && (h.p < 60 || !home));
-  const cands = home ? starts : starts.slice(0, 1);
-  let best = null;
-  for (const s of cands){
-    let prog = 0, maxP = 0, end = s.hour, done = false, interrupted = false, doneAt = null, soaked = false;
-    for (const h of hours){
-      if (h.hour < s.hour) continue;
-      if (h.hour >= limit) break;
-      const f = daylight(h.hour);
-      if (f <= 0) break;
-      if (home && (h.r.wet || h.p >= 60)){ interrupted = true; end = h.hour; break; }
-      if (!home && h.r.wet){ soaked = true; prog *= 0.3; continue; }
-      if (!done) maxP = Math.max(maxP, h.p);
-      const rate = 0.48 * Math.pow(h.r.base, 1.5) * f;
-      if (!done && prog + rate >= need){ doneAt = h.hour + (need - prog) / rate * f; prog = need; done = true; end = h.hour + 1; if (home) break; }
-      else if (!done){ prog += rate; end = Math.min(h.hour + 1, sunset); }
-      if (!home) maxP = Math.max(maxP, h.p);
-    }
-    if (!home) hours.forEach(h => { if (h.hour >= s.hour && h.hour < backAt){ maxP = Math.max(maxP, h.p); if (h.r.wet) soaked = true; } });
-    const q = Math.min(1, prog / need);
-    const risk = 1 - (home ? 0.6 : 0.9) * Math.pow(maxP / 100, 1.3);
-    const hrs = (doneAt ?? end) - s.hour;
-    const speed = done ? clamp(1.09 - 0.03 * hrs, 0.75, 1) : 0.85;
-    const score = Math.round(100 * Math.pow(q, 1.5) * risk * speed * (soaked ? 0.3 : 1));
-    if (!best || score > best.score) best = { score, start: s.hour, end, doneAt, done, interrupted, soaked, q, maxP };
+  const backAt = home ? sunset : Math.min(setup.back ?? 17, sunset);
+  let prog = 0, maxP = 0, end = startT, done = false, interrupted = false, doneAt = null, soaked = false;
+  for (const h of hours){
+    if (h.hour + 1 <= startT) continue;
+    if (h.hour >= backAt || h.hour >= sunset) break;
+    if (until != null && h.hour >= until) break;
+    const a = Math.max(h.hour, startT, sunrise), z = Math.min(h.hour + 1, sunset, backAt, until ?? 99), f = z - a;
+    if (f <= 0) continue;
+    if (home && (h.r.wet || h.p >= 60)){ interrupted = true; end = h.hour; break; }
+    if (!home && h.r.wet){ soaked = true; prog *= 0.3; continue; }
+    maxP = Math.max(maxP, h.p);
+    const rate = 0.48 * Math.pow(h.r.base, 1.5) * f;
+    if (!done && prog + rate >= need){ doneAt = a + (need - prog) / rate * f; prog = need; done = true; end = a + f; if (home) break; }
+    else if (!done){ prog += rate; end = z; }
   }
-  if (!best) return { score: 0, none: true };
-  if (home){ const rainy = hours.find(h => h.hour >= (best.doneAt ?? best.start) && (h.r.wet || h.p >= 50)); best.bringIn = Math.min(rainy ? rainy.hour : sunset, sunset); }
-  else best.bringIn = backAt;
-  return best;
+  const q = Math.min(1, prog / need);
+  if (until != null) return { q, done };
+  if (!home) hours.forEach(h => { if (h.hour + 1 > startT && h.hour < backAt){ maxP = Math.max(maxP, h.p); if (h.r.wet) soaked = true; } });
+  const risk = 1 - (home ? 0.6 : 0.9) * Math.pow(maxP / 100, 1.3);
+  const hrs = (doneAt ?? end) - startT;
+  const speed = done ? clamp(1.09 - 0.03 * hrs, 0.75, 1) : 0.85;
+  const score = Math.round(100 * Math.pow(q, 1.5) * risk * speed * (soaked ? 0.3 : 1));
+  let bringIn = backAt;
+  if (home){ const rainy = hours.find(h => h.hour >= Math.floor(doneAt ?? startT) && (h.r.wet || h.p >= 50)); bringIn = Math.max(Math.min(rainy ? rainy.hour : sunset, sunset), doneAt ?? startT); }
+  return { score, start: startT, end, doneAt, done, interrupted, soaked, q, maxP, bringIn };
+}
+
+function analyseDay(day, startFrom){
+  const home = setup.home !== false, times = [];
+  if (startFrom % 1 > 0.01) times.push(startFrom);
+  for (let t = Math.ceil(startFrom - 0.01); t < day.sunset - 0.5; t++) times.push(t);
+  let best = null;
+  for (const t of times){
+    const hr = day.hours.find(h => h.hour === Math.floor(t));
+    if (!hr || hr.r.wet || (home && hr.p >= 60)) continue;
+    const r = evalStart(day, t);
+    if (!best || r.score > best.score) best = r;
+  }
+  return best || { score: 0, none: true };
 }
 
 /* ---------- data ---------- */
-async function fetchForecast(){
-  $("status").hidden = false; $("main").hidden = true; $("statusText").textContent = "Checking the sky"; $("loader").hidden = false; firstRender = true;
+let loading = false;
+async function fetchForecast(silent){
+  if (loading) return; loading = true;
+  if (!silent || !data){ $("status").hidden = false; $("main").hidden = true; $("statusText").textContent = "Checking the sky"; $("loader").hidden = false; firstRender = true; }
+  $("refreshBtn").firstElementChild.classList.add("spin");
   const url = "https://api.open-meteo.com/v1/forecast?latitude=" + place.lat + "&longitude=" + place.lon +
     "&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,precipitation,wind_speed_10m,wind_gusts_10m,shortwave_radiation,cloud_cover,vapour_pressure_deficit" +
     "&daily=sunrise,sunset&current=temperature_2m&timezone=auto&forecast_days=7&wind_speed_unit=kmh";
-  try { const r = await fetch(url); if (!r.ok) throw 0; data = await r.json(); }
-  catch { $("statusText").textContent = "Couldn't reach the forecast. Check your connection and reload."; $("loader").hidden = true; return; }
-  build(); render();
+  let fresh = null, fromNet = false;
+  try { const r = await fetch(url); if (!r.ok) throw 0; fresh = await r.json(); fromNet = true; }
+  catch {
+    const c = store.get("pon.cache", null);
+    if (!data && c && c.lat === place.lat && c.lon === place.lon && Date.now() - c.at < 3 * 3.6e6){ fresh = c.data; fetchedAt = c.at; }
+  }
+  loading = false; $("refreshBtn").firstElementChild.classList.remove("spin");
+  if (!fresh){
+    if (data){ stale = true; updateStamp(); return; }
+    $("statusText").textContent = "Couldn't reach the forecast. Check your connection, then tap refresh."; $("loader").hidden = true; return;
+  }
+  if (fromNet){ fetchedAt = Date.now(); stale = false; store.set("pon.cache", { lat: place.lat, lon: place.lon, at: fetchedAt, data: fresh }); } else stale = true;
+  data = fresh; baseNow = hourOf(data.current.time);
+  soft = !!silent && !firstRender; build(); render(soft); soft = false; updateStamp();
+}
+function updateStamp(){
+  const t = new Date(fetchedAt).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+  $("updated").textContent = (stale ? "Offline, forecast from " : "Updated ") + t;
 }
 
 function build(){
   const H = data.hourly, D = data.daily, now = data.current.time, nowDate = now.slice(0,10);
-  nowH = hourOf(now);
-  const earliest = setup?.earliest ?? 7;
+  nowH = liveNow();
   days = D.time.map((date, i) => {
     const hours = [];
     H.time.forEach((t, j) => {
@@ -370,13 +448,15 @@ function build(){
       h.r = rateHour(h); hours.push(h);
     });
     const day = { date, sunrise: hourOf(D.sunrise[i]), sunset: hourOf(D.sunset[i]), hours, isToday: date === nowDate };
-    const startFrom = Math.max(earliest, day.isToday ? Math.ceil(nowH - 0.25) : 0);
-    day.over = day.isToday && (nowH > day.sunset - 1.5 || startFrom > day.sunset - 1.5);
+    const startFrom = day.isToday ? nowH : Math.ceil(day.sunrise);
+    day.over = day.isToday && nowH > day.sunset - 1;
     day.best = day.over ? null : analyseDay(day, startFrom);
     day.score = day.best ? day.best.score : null;
+    const st = startAt === "now" ? (day.isToday ? nowH : null) : startAt;
+    day.pick = st != null ? evalStart(day, st) : null;
     return day;
   });
-  if (selected === 0 && days[0].over) selected = 1;
+  if (selected === 0 && days[0].over && startAt == null && !soft) selected = 1;
 }
 
 /* ---------- render ---------- */
@@ -388,37 +468,77 @@ function skyFor(d){
   return p >= 60 ? "rain" : rad > 180 ? "sun" : "cloud";
 }
 
-function render(){
+const fmtDur = h => { const m = Math.max(0, Math.round(h * 60)); if (m < 60) return m + "m"; const hh = Math.floor(m / 60), mm = m % 60; return hh + "h" + (mm ? " " + pad(mm) + "m" : ""); };
+function rel(t, kind, d){
+  if (!d.isToday || t == null) return "";
+  const diff = t - nowH;
+  if (kind === "out") return diff > 0.08 ? "in " + fmtDur(diff) : diff > -0.08 ? "now" : "out for " + fmtDur(-diff);
+  return diff > 0.02 ? "in " + fmtDur(diff) : kind === "dry" ? "done" : "now";
+}
+const curOf = d => (startAt != null && d.pick) ? d.pick : d.best;
+
+function syncControls(d, b){
+  document.querySelectorAll("#segLoad button").forEach(x => x.setAttribute("aria-pressed", x.dataset.v === setup.load));
+  document.querySelectorAll("#segHome button").forEach(x => x.setAttribute("aria-pressed", x.dataset.v === (setup.home !== false ? "home" : "out")));
+  document.querySelectorAll("#segDryer button").forEach(x => x.setAttribute("aria-pressed", x.dataset.v === (setup.dryer ? "yes" : "no")));
+  $("backRow").hidden = setup.home !== false; $("bkVal").textContent = fmtH(setup.back);
+  const custom = startAt != null && d.pick;
+  $("stBest").setAttribute("aria-pressed", !custom);
+  $("stNow").setAttribute("aria-pressed", !!custom && startAt === "now");
+  $("stNow").disabled = !d.isToday || d.over;
+  $("stVal").textContent = b && !b.none ? fmtH(b.start) : "–";
+}
+
+function render(isSoft){
+  const sf = !!isSoft;
   $("status").hidden = true; $("main").hidden = false;
   $("placeName").textContent = place.name;
-  const d = days[selected], b = d.best;
+  $("clock").textContent = pad(Math.floor(nowH) % 24) + ":" + pad(Math.floor((nowH % 1) * 60));
+  const d = days[selected], b = curOf(d), best = d.best && !d.best.none ? d.best : null;
   document.body.dataset.sky = skyFor(d);
-  $("eyebrow").textContent = dayLabel(d, true) + " · " + LOADNAME[setup?.load || "mixed"];
+  try { document.querySelector('meta[name="theme-color"]').content = getComputedStyle(document.body).getPropertyValue("--g1").trim(); } catch {}
+  $("eyebrow").textContent = d.isToday ? (d.sunset > nowH ? "Today · sunset in " + fmtDur(d.sunset - nowH) : "Today · after sunset") : dayLabel(d, true) + " · sunset " + fmtH(d.sunset);
+  let rels = ["", "", ""];
   const set = (score, verdict, col, sum, o, dr, i) => {
     countTo($("score"), score); $("verdict").textContent = verdict; $("dot").style.background = col;
     $("summary").textContent = sum; $("tOut").textContent = o; $("tDry").textContent = dr; $("tIn").textContent = i;
   };
-  if (!b) set("–", "Day's over", "var(--fg-3)", "Not enough daylight left to dry a load. Tomorrow is in the 7-day view.", "–", "–", "–");
-  else if (b.none) set("0", "Keep it inside", "var(--bad)", "Rain is likely right through the daylight hours. No safe window.", "–", "–", "–");
-  else { const [, v, col] = tier(b.score); set(b.score, v, col, summaryText(d, b), fmtH(b.start), b.done ? fmtH(b.doneAt) : "Not fully", fmtH(b.bringIn)); }
+  if (!b) set("–", "Day's over", "var(--fg-3)", "Not much daylight left today. Check tomorrow in the day strip, or pick a time below.", "–", "–", "–");
+  else if (b.none) set("0", "Keep it inside", "var(--bad)", "Rain is likely right through the daylight hours. No safe window. You can still pick a time below.", "–", "–", "–");
+  else {
+    const [, v, col] = tier(b.score);
+    set(b.score, v, col, summaryText(d, b), fmtH(b.start), b.done ? fmtH(b.doneAt) : "Not fully", fmtH(b.bringIn));
+    rels = [rel(b.start, "out", d), b.done ? rel(b.doneAt, "dry", d) : "", rel(b.bringIn, "in", d)];
+  }
+  $("rOut").textContent = rels[0]; $("rDry").textContent = rels[1]; $("rIn").textContent = rels[2];
+  const cmp = $("compare"), showCmp = d.pick && best && startAt != null && Math.abs(best.start - d.pick.start) > 0.25 && best.score - d.pick.score >= 3;
+  cmp.hidden = !showCmp; if (showCmp) cmp.textContent = "Best time is " + fmtH(best.start) + " (" + best.score + "/100). Switch to it";
+  syncControls(d, b);
 
-  const win = b && !b.none ? b : null;
-  scrubH = win ? Math.floor(win.start + 1) : (d.isToday ? Math.min(Math.floor(nowH), Math.floor(d.sunset)) : 12);
+  if (!sf) scrubH = (b && !b.none) ? Math.min(Math.floor(b.start) + 1, 23) : (d.isToday ? Math.min(Math.floor(nowH), Math.floor(d.sunset)) : 12);
   drawChart(d); drawRead(d, true);
   drawFactors(d);
   drawDays();
+  if (sf) return;
   if (firstRender){
     firstRender = false;
-    [...document.querySelectorAll(".hero>*, #main>.wrap>*")].forEach((el, i) =>
+    [...document.querySelectorAll(".strip, .hero>*, #main>.wrap>*")].forEach((el, i) =>
       anim(el, [{ opacity: 0, transform: "translateY(14px)" }, { opacity: 1, transform: "none" }], { duration: 700, delay: 60 * i, easing: SPRING }));
   } else {
     ["tOut","tDry","tIn"].forEach((id, i) => anim($(id), [{ opacity: 0, transform: "translateY(8px)" }, { opacity: 1, transform: "none" }], { duration: 450, delay: 40 * i, easing: SPRING }));
     anim($("dot"), [{ transform: "scale(0)" }, { transform: "scale(1.4)", offset: .6 }, { transform: "scale(1)" }], { duration: 500, easing: EASE });
   }
 }
+function softRender(){ soft = true; build(); render(true); soft = false; }
 
 function summaryText(d, b){
-  const dryer = setup?.dryer;
+  const dryer = setup.dryer, past = d.isToday && b.start < nowH - 0.1;
+  if (b.start >= d.sunset - 0.25) return "That's after dark. Nothing dries overnight and the dew makes it wetter.";
+  if (past){
+    const r = evalStart(d, b.start, nowH), pct = Math.round(r.q * 100);
+    return `Out since ${fmtH(b.start)}, about ${pct}% dry now. ` + (b.done ? `Should finish around ${fmtH(b.doneAt)}.` : b.interrupted ? `Rain from about ${fmtH(b.end)} will interrupt it.` : "It won't fully dry before it comes in.");
+  }
+  if (b.interrupted && b.end <= b.start + 0.01) return "It's wet or about to be at that time. Pick a later time, or switch to the best window.";
   const hrs = b.done ? (b.doneAt - b.start) : 0, hs = hrs < 1.25 ? "about an hour" : "about " + (Math.round(hrs * 2) / 2) + " hours";
   if (b.soaked) return "A shower lands before you're back. It'll get wet on the line, so leave it in today.";
   if (b.done && b.maxP < 25) return `Out at ${fmtH(b.start)} and it should be dry in ${hs}. Little chance of rain.`;
@@ -442,7 +562,8 @@ function drawChart(d){
   for (let i = 1; i < pts.length; i++){ const [px, py] = pts[i-1], [cx, cy] = pts[i], mx = (px + cx) / 2; path += ` C${mx},${py} ${mx},${cy} ${cx},${cy}`; }
   const area = path + ` L${pts[pts.length-1][0]},${B} L${pts[0][0]},${B} Z`;
   let s = `<defs><linearGradient id="ga" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".42"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>`;
-  const b = d.best && !d.best.none ? d.best : null;
+  const c0 = curOf(d), b = c0 && !c0.none ? c0 : null;
+  if (d.isToday && nowH > h0 && nowH < h1) s += `<rect x="${L}" y="${T-6}" width="${x(nowH)-L}" height="${B-T+6}" fill="#000" opacity=".1"/>`;
   if (b){ const e = b.done ? b.doneAt : b.end; const bx = x(b.start), bw2 = Math.max(x(e)-bx, 3); s += `<rect x="${bx}" y="${T-6}" width="${bw2}" height="${B-T+6}" rx="8" fill="#fff" opacity=".13"/><rect x="${bx+4}" y="${T-6}" width="${Math.max(bw2-8,2)}" height="3" rx="1.5" fill="var(--warm)"/>`; }
   [50].forEach(v => s += `<line x1="${L}" x2="${R}" y1="${y(v)}" y2="${y(v)}" stroke="#fff" stroke-opacity=".14" stroke-dasharray="2 4"/>`);
   s += `<path id="cArea" d="${area}" fill="url(#ga)"/><path id="cLine" d="${path}" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>`;
@@ -450,10 +571,11 @@ function drawChart(d){
   const bw = (R - L) / (h1 - h0) * 0.5;
   hrs.forEach(h => { if (h.p >= 15){ const hh = h.p / 100 * 22; s += `<rect class="rb" x="${x(h.hour)-bw/2}" y="${136-hh}" width="${bw}" height="${hh}" rx="1.5" fill="var(--rainc)" opacity="${h.r.wet ? .95 : .55}"/>`; } });
   for (let hr = h0; hr <= h1; hr += 3) s += `<text x="${x(hr)}" y="148" text-anchor="middle">${pad(hr)}</text>`;
+  if (d.isToday && nowH > h0 && nowH < h1) s += `<line x1="${x(nowH)}" x2="${x(nowH)}" y1="${T-6}" y2="${B}" stroke="var(--warm)" stroke-width="1.5" stroke-dasharray="3 3"/><text x="${x(nowH)}" y="${T-9}" text-anchor="middle" style="fill:var(--warm)">now</text>`;
   s += `<g id="cursor"><line x1="0" x2="0" y1="${T-6}" y2="138" stroke="#fff" stroke-width="1.2"/><circle id="cd" cx="0" cy="0" r="5" fill="#fff" stroke="rgba(0,0,0,.2)"/></g>`;
   $("chart").innerHTML = s;
   const line = $("cLine"), len = line.getTotalLength ? line.getTotalLength() : 0;
-  if (len && !reduce){
+  if (len && !reduce && !soft){
     line.style.strokeDasharray = len;
     anim(line, [{ strokeDashoffset: len }, { strokeDashoffset: 0 }], { duration: 1100, easing: EASE });
     anim($("cArea"), [{ opacity: 0 }, { opacity: 1 }], { duration: 900, delay: 250, easing: "ease" });
@@ -493,7 +615,7 @@ sc.addEventListener("keydown", e => {
 });
 
 function drawFactors(d){
-  const b = d.best && !d.best.none ? d.best : null;
+  const c0 = curOf(d), b = c0 && !c0.none ? c0 : null;
   const win = b ? d.hours.filter(h => h.hour >= b.start && h.hour < Math.max(b.end, b.start + 1)) : d.hours.filter(h => h.hour >= d.sunrise && h.hour < d.sunset);
   const avg = k => win.reduce((a, h) => a + k(h), 0) / Math.max(win.length, 1);
   const max = k => Math.max(...win.map(k), 0);
@@ -516,13 +638,18 @@ function drawFactors(d){
 }
 
 function drawDays(){
+  const colOf = d => d.score == null ? "var(--fg-3)" : tier(d.score)[2];
+  $("strip").innerHTML = days.map((d, i) => `<button class="dp" type="button" role="tab" data-i="${i}" aria-selected="${i === selected}"><span>${dayLabel(d)}</span><b>${d.score ?? "–"}</b><i style="background:${colOf(d)}"></i></button>`).join("");
+  const sel = $("strip").querySelector('[aria-selected="true"]');
+  if (sel && !soft) sel.scrollIntoView({ inline: "center", block: "nearest", behavior: reduce ? "auto" : "smooth" });
   $("days").innerHTML = days.map((d, i) => {
-    const s = d.score, col = s == null ? "var(--fg-3)" : tier(s)[2];
+    const s = d.score, col = colOf(d);
     return `<button class="dayrow" type="button" data-i="${i}" aria-current="${i === selected}"><span class="dn">${dayLabel(d)}</span><span class="ds">${s ?? "–"}</span><span class="dbar"><i style="width:${s ?? 0}%;background:${col}"></i></span><span class="dv">${s == null ? "Over" : tier(s)[1]}</span></button>`;
   }).join("");
   const bestI = days.reduce((a, d, i) => (d.score ?? -1) > (days[a].score ?? -1) ? i : a, 0);
   $("weekMeta").textContent = "Best: " + dayLabel(days[bestI]);
 }
+$("strip").addEventListener("click", e => { const b = e.target.closest(".dp"); if (b) switchDay(+b.dataset.i); });
 function switchDay(i){
   if (i === selected) return;
   const dir = i > selected ? 1 : -1, main = $("main");
@@ -556,115 +683,121 @@ document.querySelectorAll("details").forEach(det => {
   });
 });
 
-/* ---------- setup questions ---------- */
-let draft = null, stepI = 0, onlyLocation = false, geoRes = [];
-const STEPS = [
-  { key: "load", q: "What's going on the line?", sub: "Thicker fabric holds more water and takes longer.",
-    opts: [["light","Light stuff","Shirts, underwear, sportswear"],["mixed","A mixed load","The usual weekly wash"],["heavy","Heavy stuff","Towels, jeans, bedding"]] },
-  { key: "home", q: "Will you be around to bring it in?", sub: "If you're out, it has to survive whatever happens until you're back.",
-    opts: [[true,"Yes, I'm home","I can grab it if the sky turns"],[false,"No, I'm out","It stays up until I get back"]] },
-  { key: "earliest", q: "Earliest you can peg it out?", sub: "We won't suggest a start before this.", grid: true,
-    opts: [[7,"07:00"],[8,"08:00"],[9,"09:00"],[10,"10:00"]] },
-  { key: "back", q: "Roughly when are you back?", sub: "That's when it comes in, rain or not.", grid: true, when: d => d.home === false,
-    opts: [[15,"15:00"],[16,"16:00"],[17,"17:00"],[18,"18:00"]] },
-  { key: "dryer", q: "Got a tumble dryer?", sub: "Helps us say how to finish a load that's not quite there.",
-    opts: [[true,"Yes","I can finish it in the dryer"],[false,"No","Airers and radiators only"]] },
-  { key: "place", q: "Where's your washing line?", sub: "Search your town, or use your location." }
-];
-const activeSteps = () => onlyLocation ? [STEPS[5]] : STEPS.filter(s => !s.when || s.when(draft));
+/* ---------- controls ---------- */
+const persist = () => store.set("pon.setup", setup);
+const seg = (id, fn) => $(id).addEventListener("click", e => { const b = e.target.closest("button"); if (b){ fn(b.dataset.v); persist(); softRender(); } });
+seg("segLoad", v => setup.load = v);
+seg("segHome", v => setup.home = v === "home");
+seg("segDryer", v => setup.dryer = v === "yes");
+const stepBack = dir => { setup.back = clamp(Math.round(((setup.back ?? 17) + dir * 0.5) * 2) / 2, 9, 22); persist(); softRender(); };
+$("bkMinus").addEventListener("click", () => stepBack(-1)); $("bkPlus").addEventListener("click", () => stepBack(1));
+$("stBest").addEventListener("click", () => { startAt = null; softRender(); });
+$("stNow").addEventListener("click", () => { startAt = "now"; softRender(); });
+function stepStart(dir){
+  const d = days[selected], b = curOf(d);
+  const base = startAt === "now" ? nowH : (startAt ?? (b && !b.none ? b.start : (d.isToday ? nowH : 9)));
+  startAt = clamp(Math.round((base + dir * 0.5) * 2) / 2, 0, 23.5); softRender();
+}
+$("stMinus").addEventListener("click", () => stepStart(-1)); $("stPlus").addEventListener("click", () => stepStart(1));
+$("setHere").addEventListener("click", () => { startAt = scrubH; softRender(); window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); });
+$("compare").addEventListener("click", () => { startAt = null; softRender(); });
 
-function openSetup(locOnly){
-  onlyLocation = !!locOnly;
-  draft = Object.assign({ load: "mixed", home: true, earliest: 8, back: 18, dryer: false, place }, setup || {}, { place });
-  stepI = 0; geoRes = []; $("steps").innerHTML = ""; $("sheet").hidden = false; $("sheet").classList.remove("closing"); drawStep(0);
+/* ---------- settings sheet ---------- */
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+let geoRes = [], st_t;
+function renderRes(){
+  $("res").innerHTML = `<button class="opt" type="button" data-geo="1"><b>Use my location</b><span>Ask the browser where you are</span></button><button class="opt" type="button" data-cur="1" aria-pressed="true"><b>${esc(place.name)}</b><span>Current</span></button>`;
+}
+function openSetup(){
+  $("search").value = ""; renderRes(); syncControls(days[selected] || { isToday: false, over: true }, null);
+  $("sheet").hidden = false; $("sheet").classList.remove("closing");
   anim($("sheet"), [{ opacity: 0 }, { opacity: 1 }], { duration: 300, easing: "ease", fill: "none" });
   anim(document.querySelector(".card"), [{ transform: "translateY(60px) scale(.98)", opacity: 0 }, { transform: "none", opacity: 1 }], { duration: 600, easing: SPRING, fill: "none" });
 }
 function closeSetup(){
+  if ($("sheet").hidden) return;
   const a = anim(document.querySelector(".card"), [{ transform: "none", opacity: 1 }, { transform: "translateY(40px) scale(.98)", opacity: 0 }], { duration: 260, easing: "ease-in" });
   $("sheet").classList.add("closing");
   const done = () => { $("sheet").hidden = true; $("sheet").classList.remove("closing"); a && a.cancel(); };
   a ? a.finished.then(done) : done();
 }
-
-function drawStep(dir){
-  const steps = activeSteps(), st = steps[stepI], bar = $("steps");
-  if (steps.length < 2) bar.innerHTML = "";
-  else {
-    if (bar.children.length !== steps.length) bar.innerHTML = steps.map(() => "<i></i>").join("");
-    requestAnimationFrame(() => [...bar.children].forEach((el, i) => el.classList.toggle("on", i <= stepI)));
-  }
-  if (dir) anim($("stepBody"), [{ opacity: 0, transform: `translateX(${dir * 28}px)` }, { opacity: 1, transform: "none" }], { duration: 480, easing: SPRING });
-  $("qTitle").textContent = st.q; $("qSub").textContent = st.sub;
-  $("back").style.visibility = stepI === 0 && !setup ? "hidden" : "visible";
-  $("back").textContent = stepI === 0 ? "Cancel" : "Back";
-  $("next").textContent = stepI === steps.length - 1 ? "Show my forecast" : "Next";
-  if (st.key === "place"){
-    $("qBody").innerHTML = `<input class="search" id="search" type="search" placeholder="Town or city" autocomplete="off" aria-label="Search town">
-      <div class="res" id="res">
-        <button class="opt" type="button" data-geo="1"><b>Use my location</b><span>Ask the browser where you are</span></button>
-        <button class="opt" type="button" data-cur="1" aria-pressed="true"><b>${draft.place.name}</b><span>Current</span></button>
-      </div>`;
-    $("search").addEventListener("input", onSearch);
-    $("res").addEventListener("click", onResClick);
-  } else {
-    $("qBody").innerHTML = `<div class="opts ${st.grid ? "grid4" : ""}">` + st.opts.map(([v, t, s], i) =>
-      `<button class="opt" type="button" data-i="${i}" aria-pressed="${draft[st.key] === v}"><b>${t}</b>${s ? `<span>${s}</span>` : ""}</button>`).join("") + `</div>`;
-    $("qBody").querySelector(".opts").addEventListener("click", e => {
-      const b = e.target.closest(".opt"); if (!b) return;
-      draft[st.key] = st.opts[+b.dataset.i][0];
-      $("qBody").querySelectorAll(".opt").forEach(o => o.setAttribute("aria-pressed", o === b));
-      setTimeout(advance, 260);
-    });
-  }
-}
-let st_t;
-function onSearch(e){
-  clearTimeout(st_t); const q = e.target.value.trim(); if (q.length < 2) return;
+function pickPlace(p){ place = p; store.set("pon.place", place); selected = 0; closeSetup(); data = null; fetchForecast(false); }
+$("search").addEventListener("input", e => {
+  clearTimeout(st_t); const q = e.target.value.trim(); if (q.length < 2){ renderRes(); return; }
   st_t = setTimeout(async () => {
     try {
       const j = await (await fetch("https://geocoding-api.open-meteo.com/v1/search?count=5&language=en&name=" + encodeURIComponent(q))).json();
       geoRes = j.results || [];
-      $("res").innerHTML = geoRes.length ? geoRes.map((p, i) => `<button class="opt" type="button" data-r="${i}"><b>${p.name}</b><span>${[p.admin1, p.country].filter(Boolean).join(", ")}</span></button>`).join("")
-        : `<p class="qs">No matches. Try a nearby town.</p>`;
+      $("res").innerHTML = geoRes.length ? geoRes.map((p, i) => `<button class="opt" type="button" data-r="${i}"><b>${esc(p.name)}</b><span>${esc([p.admin1, p.country].filter(Boolean).join(", "))}</span></button>`).join("") : `<p class="qs">No matches. Try a nearby town.</p>`;
       [...$("res").children].forEach((c, i) => anim(c, [{ opacity: 0, transform: "translateY(6px)" }, { opacity: 1, transform: "none" }], { duration: 380, delay: i * 35, easing: SPRING }));
     } catch { $("res").innerHTML = `<p class="qs">Search isn't reachable right now.</p>`; }
   }, 280);
-}
-function onResClick(e){
+});
+$("res").addEventListener("click", e => {
   const b = e.target.closest(".opt"); if (!b) return;
-  if (b.dataset.r != null){ const p = geoRes[+b.dataset.r]; draft.place = { name: p.name, lat: p.latitude, lon: p.longitude }; finish(); }
-  else if (b.dataset.cur) finish();
+  if (b.dataset.r != null){ const p = geoRes[+b.dataset.r]; pickPlace({ name: p.name, lat: p.latitude, lon: p.longitude }); }
+  else if (b.dataset.cur) closeSetup();
   else if (b.dataset.geo){
     if (!navigator.geolocation){ b.querySelector("span").textContent = "Not available here. Search instead."; return; }
     b.querySelector("span").textContent = "Locating…";
     navigator.geolocation.getCurrentPosition(
-      p => { draft.place = { name: "Your location", lat: +p.coords.latitude.toFixed(3), lon: +p.coords.longitude.toFixed(3) }; finish(); },
+      p => pickPlace({ name: "Your location", lat: +p.coords.latitude.toFixed(3), lon: +p.coords.longitude.toFixed(3) }),
       () => { b.querySelector("span").textContent = "Location blocked. Search instead."; },
       { timeout: 10000, maximumAge: 600000 });
   }
+});
+$("setupBtn").addEventListener("click", openSetup);
+$("placeBtn").addEventListener("click", openSetup);
+$("done").addEventListener("click", closeSetup);
+$("sheet").addEventListener("click", e => { if (e.target === $("sheet")) closeSetup(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeSetup(); });
+$("refreshBtn").addEventListener("click", () => { lastTry = Date.now(); fetchForecast(true); });
+
+/* ---------- live time ---------- */
+let lastTry = Date.now(), lastMin = -1;
+function tick(){
+  if (!data) return;
+  const n = liveNow(), t = Date.now();
+  if (n >= 24){ if (t - lastTry > 30e3){ lastTry = t; fetchForecast(true); } return; }
+  $("clock").textContent = pad(Math.floor(n)) + ":" + pad(Math.floor((n % 1) * 60));
+  const m = Math.floor(n * 60);
+  if (m !== lastMin){ lastMin = m; if (!$("main").hidden && $("sheet").hidden) softRender(); }
+  if (t - lastTry > (stale ? 60e3 : 15 * 60e3)){ lastTry = t; fetchForecast(true); }
 }
-function advance(){ const n = activeSteps().length; if (stepI < n - 1){ stepI++; drawStep(1); } else finish(); }
-function finish(){
-  const { place: p, ...rest } = draft;
-  setup = Object.assign({}, setup || {}, onlyLocation ? {} : rest);
-  if (!setup.load) setup = { load: "mixed", home: true, earliest: 8, back: 18, dryer: false };
-  store.set("pon.setup", setup);
-  const moved = p.lat !== place.lat || p.lon !== place.lon;
-  place = p; store.set("pon.place", place);
-  closeSetup(); selected = 0;
-  if (moved || !data) fetchForecast(); else { build(); render(); }
+document.addEventListener("visibilitychange", () => { if (!document.hidden){ if (Date.now() - fetchedAt > 5 * 60e3){ lastTry = Date.now(); fetchForecast(true); } else tick(); } });
+addEventListener("online", () => { lastTry = Date.now(); fetchForecast(true); });
+
+/* swipe between days */
+let tx = 0, ty = 0;
+$("main").addEventListener("touchstart", e => { const t = e.touches[0]; tx = t.clientX; ty = t.clientY; }, { passive: true });
+$("main").addEventListener("touchend", e => {
+  if (e.target.closest(".scrub, .strip, .stepper")) return;
+  const t = e.changedTouches[0], dx = t.clientX - tx, dy = t.clientY - ty;
+  if (Math.abs(dx) > 70 && Math.abs(dy) < 45){ const i = selected + (dx < 0 ? 1 : -1); if (i >= 0 && i < days.length) switchDay(i); }
+}, { passive: true });
+document.addEventListener("click", e => { if (e.target.closest("button") && navigator.vibrate) try { navigator.vibrate(6); } catch {} });
+
+/* ---------- installable app bits ---------- */
+function makeIcon(sz){
+  const c = document.createElement("canvas"); c.width = c.height = sz; const g = c.getContext("2d");
+  const gr = g.createLinearGradient(0, 0, 0, sz); gr.addColorStop(0, "#2c6fb8"); gr.addColorStop(1, "#9cc3e6");
+  g.fillStyle = gr; g.fillRect(0, 0, sz, sz);
+  g.fillStyle = "rgba(255,255,255,.96)"; g.beginPath(); g.arc(sz * .5, sz * .4, sz * .17, 0, 7); g.fill();
+  g.strokeStyle = "#fff"; g.lineWidth = sz * .025; g.lineCap = "round";
+  g.beginPath(); g.moveTo(sz * .14, sz * .7); g.quadraticCurveTo(sz * .5, sz * .82, sz * .86, sz * .7); g.stroke();
+  g.fillStyle = "rgba(255,255,255,.9)"; [[.34, .75], [.5, .78], [.66, .75]].forEach(([x, y]) => g.fillRect(sz * x - sz * .035, sz * y, sz * .07, sz * .1));
+  return c.toDataURL("image/png");
 }
-$("next").addEventListener("click", advance);
-$("back").addEventListener("click", () => { if (stepI === 0) closeSetup(); else { stepI--; drawStep(-1); } });
-$("setupBtn").addEventListener("click", () => openSetup(false));
-$("setupLink").addEventListener("click", () => openSetup(false));
-$("placeBtn").addEventListener("click", () => openSetup(true));
-document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("sheet").hidden && setup) closeSetup(); });
+try {
+  const l = document.createElement("link"); l.rel = "apple-touch-icon"; l.href = makeIcon(180); document.head.appendChild(l);
+  const m = document.createElement("link"); m.rel = "manifest";
+  m.href = "data:application/manifest+json;base64," + btoa(JSON.stringify({ name: "Peg or Not", short_name: "Peg or Not", display: "standalone", start_url: location.href.split("#")[0], background_color: "#2c6fb8", theme_color: "#2c6fb8", icons: [{ src: makeIcon(512), sizes: "512x512", type: "image/png", purpose: "any maskable" }] }));
+  document.head.appendChild(m);
+} catch {}
 
 /* ---------- boot ---------- */
-if (!setup) openSetup(false);
-fetchForecast();
+fetchForecast(false);
+setInterval(tick, 10000);
 })();
 </script>
 </body>
